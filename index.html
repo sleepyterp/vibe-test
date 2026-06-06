@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DesignSpy — Graphic Design Inspiration Finder</title>
+  <style>
+    :root {
+      --bg: #0f0f11;
+      --surface: #18181c;
+      --surface2: #222228;
+      --border: #2e2e38;
+      --accent: #7c6af7;
+      --accent-hover: #9585fa;
+      --accent-dim: #7c6af720;
+      --text: #e8e8f0;
+      --text-muted: #888899;
+      --tag-bg: #2a2a36;
+      --tag-hover: #343446;
+      --danger: #f76a6a;
+      --success: #6af79a;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), #c084fc);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .header-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* MAIN LAYOUT */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--text) 40%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* GRID SECTIONS */
+    .filters-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 680px) {
+      .filters-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.7rem; }
+      header { padding: 16px 20px; }
+    }
+
+    /* TAG CHIPS */
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      color: var(--text-muted);
+    }
+
+    .tag:hover {
+      background: var(--tag-hover);
+      color: var(--text);
+      border-color: #444;
+    }
+
+    .tag.active {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent-hover);
+    }
+
+    /* COMPANY INPUT */
+    .company-input-area {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    input[type="text"]::placeholder {
+      color: var(--text-muted);
+    }
+
+    .btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--tag-hover);
+      border-color: #444;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .company-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .company-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.8rem;
+      color: var(--accent-hover);
+    }
+
+    .remove-chip {
+      cursor: pointer;
+      opacity: 0.6;
+      font-size: 1rem;
+      line-height: 1;
+      transition: opacity 0.1s;
+    }
+
+    .remove-chip:hover { opacity: 1; }
+
+    /* QUICK PRESETS */
+    .presets-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: var(--font);
+    }
+
+    .preset-btn:hover {
+      background: var(--tag-hover);
+      color: var(--text);
+      border-color: #444;
+    }
+
+    /* SEARCH PREVIEW */
+    .search-preview {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: 'Courier New', monospace;
+      word-break: break-all;
+      min-height: 44px;
+      margin-top: 8px;
+    }
+
+    .search-preview .query-text {
+      color: var(--success);
+    }
+
+    /* SEARCH BAR */
+    .search-bar-card {
+      background: linear-gradient(135deg, var(--surface), #1e1a36);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .search-engines {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .engine-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid transparent;
+      font-family: var(--font);
+    }
+
+    .engine-google {
+      background: #4285f4;
+      color: #fff;
+    }
+
+    .engine-google:hover { background: #5a96f5; }
+
+    .engine-bing {
+      background: #00809d;
+      color: #fff;
+    }
+
+    .engine-bing:hover { background: #009ab8; }
+
+    .engine-duckduckgo {
+      background: #de5833;
+      color: #fff;
+    }
+
+    .engine-duckduckgo:hover { background: #e86d4a; }
+
+    /* KEYWORD INPUT */
+    .keyword-area {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .keyword-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
+    }
+
+    /* STATUS */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    .status-dot.ready { background: var(--success); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+
+    /* TOOLTIP */
+    .tooltip-wrap { position: relative; display: inline-block; }
+    .tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #eee;
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .tooltip-wrap:hover .tooltip { opacity: 1; }
+
+    /* EMPTY STATE */
+    .empty-notice {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">◈</div>
+    Design<span>Spy</span>
+  </div>
+  <div class="header-sub">Real-world design inspiration finder</div>
+</header>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>Find Real Design Inspiration</h1>
+    <p>Search for actual marketing materials from real companies — not stock mockups. Filter by industry, format, and file type.</p>
+  </div>
+
+  <!-- QUICK PRESETS -->
+  <div class="card">
+    <div class="card-title">Quick Presets</div>
+    <div class="presets-row" id="presetsRow"></div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-grid">
+
+    <!-- Industry -->
+    <div class="card">
+      <div class="card-title">Industry</div>
+      <div class="tag-group" id="industryTags"></div>
+    </div>
+
+    <!-- Creative Type -->
+    <div class="card">
+      <div class="card-title">Creative Piece Type</div>
+      <div class="tag-group" id="typeTags"></div>
+    </div>
+
+    <!-- File Type -->
+    <div class="card">
+      <div class="card-title">File Type</div>
+      <div class="tag-group" id="fileTags"></div>
+    </div>
+
+    <!-- Keywords -->
+    <div class="card">
+      <div class="card-title">Additional Keywords</div>
+      <div class="keyword-area">
+        <div class="input-row">
+          <input type="text" id="keywordInput" placeholder="e.g. sustainability, bold typography..." />
+          <button class="btn" onclick="addKeyword()">Add</button>
+        </div>
+        <div class="keyword-tags" id="keywordTags">
+          <span class="empty-notice">No extra keywords yet</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMPANIES -->
+  <div class="card">
+    <div class="card-title">Target Companies</div>
+    <div class="company-input-area">
+      <div class="input-row">
+        <input type="text" id="companyInput" placeholder="Type a company name and press Add or Enter..." />
+        <button class="btn" onclick="addCompany()">Add</button>
+      </div>
+      <div class="section-label">Quick-add well-known firms:</div>
+      <div class="tag-group" id="companyPresets"></div>
+      <div class="company-chips" id="companyChips">
+        <span class="empty-notice" id="companyEmpty">No companies added — results will search all companies</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-bar-card">
+    <div class="card-title">Search Query Preview</div>
+    <div class="search-preview" id="queryPreview">
+      <span class="query-text">Select filters above to build your search query…</span>
+    </div>
+    <div class="search-engines" id="searchEngines">
+      <button class="engine-btn engine-google" onclick="openSearch('google')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Search Google
+      </button>
+      <button class="engine-btn engine-bing" onclick="openSearch('bing')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M5 3l4 1.5v13l6-3.5-2.5-1.5L11 8l6 2v6l-8 4.5L5 18V3z"/></svg>
+        Search Bing
+      </button>
+      <button class="engine-btn engine-duckduckgo" onclick="openSearch('duckduckgo')">
+        🦆 DuckDuckGo
+      </button>
+    </div>
+    <div class="status-bar">
+      <div class="status-dot" id="statusDot"></div>
+      <span id="statusText">Add at least one filter or company to search</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  DesignSpy · Finds publicly available design materials from the web · Results open directly in your search engine
+</footer>
+
+<script>
+  // ── DATA ──────────────────────────────────────────────────────────────────
+
+  const INDUSTRIES = [
+    "Architecture & Engineering",
+    "Construction",
+    "Technology",
+    "Healthcare",
+    "Finance & Banking",
+    "Real Estate",
+    "Energy & Utilities",
+    "Government & Public Sector",
+    "Education",
+    "Nonprofit",
+    "Retail & Consumer",
+    "Transportation & Logistics",
+    "Environmental & Sustainability",
+    "Legal & Professional Services",
+    "Hospitality & Travel",
+  ];
+
+  const CREATIVE_TYPES = [
+    { label: "Fact Sheet", keywords: ["fact sheet", "factsheet"] },
+    { label: "Brochure", keywords: ["brochure", "capabilities brochure"] },
+    { label: "Case Study", keywords: ["case study"] },
+    { label: "Annual Report", keywords: ["annual report"] },
+    { label: "White Paper", keywords: ["white paper", "whitepaper"] },
+    { label: "Proposal", keywords: ["proposal", "RFP response"] },
+    { label: "Social Media Post", keywords: ["social media", "linkedin post", "instagram post"] },
+    { label: "Newsletter", keywords: ["newsletter", "e-newsletter"] },
+    { label: "Ad / Banner", keywords: ["advertisement", "banner ad", "display ad"] },
+    { label: "Infographic", keywords: ["infographic"] },
+    { label: "Presentation", keywords: ["presentation deck", "slide deck"] },
+    { label: "One-Pager", keywords: ["one pager", "one-pager", "overview sheet"] },
+    { label: "Capabilities Statement", keywords: ["capabilities statement", "capability statement"] },
+    { label: "Data Sheet", keywords: ["data sheet", "datasheet", "spec sheet"] },
+    { label: "Event Flyer", keywords: ["event flyer", "conference flyer"] },
+  ];
+
+  const FILE_TYPES = [
+    { label: "PDF", value: "pdf" },
+    { label: "JPG / Image", value: "jpg" },
+    { label: "PNG", value: "png" },
+    { label: "Any (no filter)", value: null },
+  ];
+
+  const COMPANY_PRESETS_AEC = [
+    "AECOM", "WSP", "Jacobs", "Kimley-Horn", "GHD",
+    "Stantec", "Tetra Tech", "Burns & McDonnell", "HDR", "HNTB",
+    "Parsons", "Arcadis", "Gensler", "HOK", "Perkins&Will",
+  ];
+
+  const PRESETS = [
+    {
+      label: "AEC Fact Sheets (PDF)",
+      industry: "Architecture & Engineering",
+      type: "Fact Sheet",
+      file: "pdf",
+      companies: ["AECOM", "WSP", "Jacobs", "Kimley-Horn", "GHD"],
+    },
+    {
+      label: "AEC Case Studies",
+      industry: "Architecture & Engineering",
+      type: "Case Study",
+      file: "pdf",
+      companies: ["AECOM", "Stantec", "Jacobs"],
+    },
+    {
+      label: "Tech Company Brochures",
+      industry: "Technology",
+      type: "Brochure",
+      file: "pdf",
+      companies: [],
+    },
+    {
+      label: "Healthcare Infographics",
+      industry: "Healthcare",
+      type: "Infographic",
+      file: null,
+      companies: [],
+    },
+    {
+      label: "AEC Annual Reports",
+      industry: "Architecture & Engineering",
+      type: "Annual Report",
+      file: "pdf",
+      companies: ["AECOM", "WSP", "Arcadis"],
+    },
+  ];
+
+  // ── STATE ─────────────────────────────────────────────────────────────────
+
+  const state = {
+    industry: null,
+    type: null,
+    file: null,
+    companies: [],
+    keywords: [],
+  };
+
+  // ── RENDER ────────────────────────────────────────────────────────────────
+
+  function renderAll() {
+    renderTags('industryTags', INDUSTRIES, 'industry', i => i, i => i);
+    renderTags('typeTags', CREATIVE_TYPES, 'type', t => t.label, t => t.label);
+    renderTags('fileTags', FILE_TYPES, 'file', f => f.label, f => f.value);
+    renderCompanyPresets();
+    renderPresets();
+    updateQuery();
+  }
+
+  function renderTags(containerId, items, stateKey, labelFn, valueFn) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    items.forEach(item => {
+      const val = valueFn(item);
+      const label = labelFn(item);
+      const tag = document.createElement('div');
+      tag.className = 'tag' + (state[stateKey] === val ? ' active' : '');
+      tag.textContent = label;
+      tag.onclick = () => {
+        state[stateKey] = state[stateKey] === val ? null : val;
+        renderAll();
+      };
+      container.appendChild(tag);
+    });
+  }
+
+  function renderCompanyPresets() {
+    const container = document.getElementById('companyPresets');
+    container.innerHTML = '';
+    COMPANY_PRESETS_AEC.forEach(name => {
+      const tag = document.createElement('div');
+      tag.className = 'tag' + (state.companies.includes(name) ? ' active' : '');
+      tag.textContent = name;
+      tag.onclick = () => {
+        if (state.companies.includes(name)) {
+          state.companies = state.companies.filter(c => c !== name);
+        } else {
+          state.companies.push(name);
+        }
+        renderAll();
+      };
+      container.appendChild(tag);
+    });
+    renderCompanyChips();
+  }
+
+  function renderCompanyChips() {
+    const container = document.getElementById('companyChips');
+    const empty = document.getElementById('companyEmpty');
+    // Remove existing chips (not the empty notice)
+    Array.from(container.children).forEach(c => {
+      if (c !== empty) c.remove();
+    });
+
+    if (state.companies.length === 0) {
+      empty.style.display = '';
+      return;
+    }
+    empty.style.display = 'none';
+
+    state.companies.forEach(name => {
+      const chip = document.createElement('div');
+      chip.className = 'company-chip';
+      chip.innerHTML = `${name} <span class="remove-chip" onclick="removeCompany('${name.replace(/'/g, "\\'")}')">×</span>`;
+      container.appendChild(chip);
+    });
+  }
+
+  function renderPresets() {
+    const container = document.getElementById('presetsRow');
+    container.innerHTML = '';
+    PRESETS.forEach(preset => {
+      const btn = document.createElement('button');
+      btn.className = 'preset-btn';
+      btn.textContent = '⚡ ' + preset.label;
+      btn.onclick = () => applyPreset(preset);
+      container.appendChild(btn);
+    });
+  }
+
+  function applyPreset(preset) {
+    state.industry = preset.industry;
+    state.type = preset.type;
+    state.file = preset.file;
+    state.companies = [...preset.companies];
+    renderAll();
+  }
+
+  // ── COMPANY MANAGEMENT ────────────────────────────────────────────────────
+
+  function addCompany() {
+    const input = document.getElementById('companyInput');
+    const val = input.value.trim();
+    if (val && !state.companies.includes(val)) {
+      state.companies.push(val);
+      renderAll();
+    }
+    input.value = '';
+    input.focus();
+  }
+
+  function removeCompany(name) {
+    state.companies = state.companies.filter(c => c !== name);
+    renderAll();
+  }
+
+  document.getElementById('companyInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addCompany();
+  });
+
+  // ── KEYWORD MANAGEMENT ────────────────────────────────────────────────────
+
+  function addKeyword() {
+    const input = document.getElementById('keywordInput');
+    const val = input.value.trim();
+    if (val && !state.keywords.includes(val)) {
+      state.keywords.push(val);
+      renderKeywords();
+      updateQuery();
+    }
+    input.value = '';
+    input.focus();
+  }
+
+  function removeKeyword(kw) {
+    state.keywords = state.keywords.filter(k => k !== kw);
+    renderKeywords();
+    updateQuery();
+  }
+
+  document.getElementById('keywordInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addKeyword();
+  });
+
+  function renderKeywords() {
+    const container = document.getElementById('keywordTags');
+    container.innerHTML = '';
+    if (state.keywords.length === 0) {
+      container.innerHTML = '<span class="empty-notice">No extra keywords yet</span>';
+      return;
+    }
+    state.keywords.forEach(kw => {
+      const chip = document.createElement('div');
+      chip.className = 'company-chip';
+      chip.innerHTML = `${kw} <span class="remove-chip" onclick="removeKeyword('${kw.replace(/'/g, "\\'")}')">×</span>`;
+      container.appendChild(chip);
+    });
+  }
+
+  // ── QUERY BUILDER ─────────────────────────────────────────────────────────
+
+  function buildQuery() {
+    const parts = [];
+
+    // Creative type keywords
+    if (state.type) {
+      const typeObj = CREATIVE_TYPES.find(t => t.label === state.type);
+      if (typeObj) {
+        const kws = typeObj.keywords;
+        const typeStr = kws.length === 1
+          ? `"${kws[0]}"`
+          : `(${kws.map(k => `"${k}"`).join(' OR ')})`;
+        parts.push(typeStr);
+      }
+    }
+
+    // Industry
+    if (state.industry) {
+      // Use shorter form for cleaner searches
+      const industryMap = {
+        "Architecture & Engineering": '"architecture" OR "engineering" OR "AEC"',
+        "Construction": '"construction"',
+        "Technology": '"technology" OR "software" OR "tech"',
+        "Healthcare": '"healthcare" OR "health"',
+        "Finance & Banking": '"finance" OR "financial services" OR "banking"',
+        "Real Estate": '"real estate"',
+        "Energy & Utilities": '"energy" OR "utilities"',
+        "Government & Public Sector": '"government" OR "public sector"',
+        "Education": '"education" OR "higher education"',
+        "Nonprofit": '"nonprofit" OR "non-profit"',
+        "Retail & Consumer": '"retail" OR "consumer goods"',
+        "Transportation & Logistics": '"transportation" OR "logistics"',
+        "Environmental & Sustainability": '"environmental" OR "sustainability"',
+        "Legal & Professional Services": '"legal" OR "professional services"',
+        "Hospitality & Travel": '"hospitality" OR "travel"',
+      };
+      if (industryMap[state.industry]) {
+        parts.push(industryMap[state.industry]);
+      }
+    }
+
+    // Companies — if multiple, use OR grouping
+    if (state.companies.length > 0) {
+      if (state.companies.length === 1) {
+        parts.push(`"${state.companies[0]}"`);
+      } else {
+        parts.push(`(${state.companies.map(c => `"${c}"`).join(' OR ')})`);
+      }
+    }
+
+    // Extra keywords
+    state.keywords.forEach(kw => {
+      parts.push(`"${kw}"`);
+    });
+
+    // File type
+    if (state.file) {
+      parts.push(`filetype:${state.file}`);
+    }
+
+    return parts.join(' ');
+  }
+
+  function updateQuery() {
+    const q = buildQuery();
+    const preview = document.getElementById('queryPreview');
+    const dot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+
+    if (!q) {
+      preview.innerHTML = '<span class="query-text">Select filters above to build your search query…</span>';
+      dot.className = 'status-dot';
+      statusText.textContent = 'Add at least one filter or company to search';
+    } else {
+      preview.innerHTML = `<span class="query-text">${escapeHtml(q)}</span>`;
+      dot.className = 'status-dot ready';
+      statusText.textContent = 'Query ready — click a search button below';
+    }
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── SEARCH ────────────────────────────────────────────────────────────────
+
+  function openSearch(engine) {
+    const q = buildQuery();
+    if (!q) {
+      alert('Please select at least one filter or add a company before searching.');
+      return;
+    }
+
+    const urls = {
+      google: `https://www.google.com/search?q=${encodeURIComponent(q)}&tbm=isch`,
+      bing: `https://www.bing.com/search?q=${encodeURIComponent(q)}`,
+      duckduckgo: `https://duckduckgo.com/?q=${encodeURIComponent(q)}`,
+    };
+
+    // For PDFs, switch Google to regular search (not image search)
+    let url = urls[engine];
+    if (engine === 'google' && state.file === 'pdf') {
+      url = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+    }
+
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  // ── INIT ──────────────────────────────────────────────────────────────────
+  renderAll();
+</script>
+</body>
+</html>
