@@ -17,9 +17,9 @@
       --text-muted: #888899;
       --tag-bg: #2a2a36;
       --tag-hover: #343446;
-      --danger: #f76a6a;
       --success: #6af79a;
       --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --sidebar-w: 300px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,133 +32,122 @@
       line-height: 1.5;
     }
 
-    /* HEADER */
+    /* ── HEADER ── */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 32px;
+      padding: 14px 24px;
       border-bottom: 1px solid var(--border);
+      background: var(--bg);
       position: sticky;
       top: 0;
-      background: var(--bg);
-      z-index: 100;
-      backdrop-filter: blur(12px);
+      z-index: 200;
     }
 
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
 
     .logo-icon {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       background: linear-gradient(135deg, var(--accent), #c084fc);
-      border-radius: 8px;
+      border-radius: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .logo span { color: var(--accent); }
 
-    .header-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    /* MAIN LAYOUT */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .hero h1 {
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, var(--text) 40%, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    /* CARD */
-    .card {
-      background: var(--surface);
+    .toggle-sidebar-btn {
+      background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 20px;
+      border-radius: 8px;
+      padding: 7px 12px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: all 0.15s;
+      display: none;
     }
 
-    .card-title {
-      font-size: 0.7rem;
+    .toggle-sidebar-btn:hover { color: var(--text); background: var(--tag-hover); }
+
+    /* ── LAYOUT ── */
+    .app {
+      display: flex;
+      height: calc(100vh - 57px);
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transition: margin-left 0.25s ease;
+    }
+
+    .sidebar.hidden {
+      margin-left: calc(-1 * var(--sidebar-w));
+    }
+
+    .sidebar-inner {
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar-section {}
+
+    .section-title {
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--text-muted);
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
-    /* GRID SECTIONS */
-    .filters-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 680px) {
-      .filters-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 1.7rem; }
-      header { padding: 16px 20px; }
-    }
-
-    /* TAG CHIPS */
+    /* ── TAGS ── */
     .tag-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 6px;
     }
 
     .tag {
       background: var(--tag-bg);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 0.82rem;
+      border-radius: 16px;
+      padding: 4px 11px;
+      font-size: 0.76rem;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.12s;
       user-select: none;
       color: var(--text-muted);
     }
 
-    .tag:hover {
-      background: var(--tag-hover);
-      color: var(--text);
-      border-color: #444;
-    }
+    .tag:hover { background: var(--tag-hover); color: var(--text); }
 
     .tag.active {
       background: var(--accent-dim);
@@ -166,270 +155,366 @@
       color: var(--accent-hover);
     }
 
-    /* COMPANY INPUT */
-    .company-input-area {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
+    /* ── INPUTS ── */
     .input-row {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     input[type="text"] {
       flex: 1;
       background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
+      border-radius: 8px;
+      padding: 8px 11px;
       color: var(--text);
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       font-family: var(--font);
       outline: none;
       transition: border-color 0.15s;
+      min-width: 0;
     }
 
-    input[type="text"]:focus {
-      border-color: var(--accent);
-    }
-
-    input[type="text"]::placeholder {
-      color: var(--text-muted);
-    }
+    input[type="text"]:focus { border-color: var(--accent); }
+    input[type="text"]::placeholder { color: var(--text-muted); }
 
     .btn {
       background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 16px;
-      color: var(--text);
-      font-size: 0.85rem;
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
       font-family: var(--font);
       cursor: pointer;
       transition: all 0.15s;
       white-space: nowrap;
     }
 
-    .btn:hover {
-      background: var(--tag-hover);
-      border-color: #444;
-    }
+    .btn:hover { background: var(--tag-hover); color: var(--text); }
 
-    .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-    }
-
-    .company-chips {
+    /* ── CHIPS ── */
+    .chip-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
+      margin-top: 6px;
     }
 
-    .company-chip {
+    .chip {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: var(--accent-dim);
       border: 1px solid var(--accent);
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 0.8rem;
+      border-radius: 14px;
+      padding: 3px 10px;
+      font-size: 0.74rem;
       color: var(--accent-hover);
     }
 
-    .remove-chip {
+    .chip-x {
       cursor: pointer;
       opacity: 0.6;
-      font-size: 1rem;
+      font-size: 0.95rem;
       line-height: 1;
       transition: opacity 0.1s;
     }
 
-    .remove-chip:hover { opacity: 1; }
+    .chip-x:hover { opacity: 1; }
 
-    /* QUICK PRESETS */
-    .presets-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    /* ── SEARCH BUTTON ── */
+    .search-btn {
+      width: 100%;
+      padding: 11px;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: background 0.15s;
+      letter-spacing: 0.01em;
     }
 
-    .preset-btn {
+    .search-btn:hover { background: var(--accent-hover); }
+    .search-btn:disabled { background: var(--tag-bg); color: var(--text-muted); cursor: not-allowed; }
+
+    /* ── PRESETS ── */
+    .preset-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .preset-item {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 7px 14px;
-      font-size: 0.78rem;
+      padding: 7px 11px;
+      font-size: 0.76rem;
       color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.12s;
       font-family: var(--font);
+      text-align: left;
     }
 
-    .preset-btn:hover {
-      background: var(--tag-hover);
-      color: var(--text);
-      border-color: #444;
-    }
+    .preset-item:hover { background: var(--tag-hover); color: var(--text); border-color: #444; }
 
-    /* SEARCH PREVIEW */
-    .search-preview {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      font-family: 'Courier New', monospace;
-      word-break: break-all;
-      min-height: 44px;
-      margin-top: 8px;
-    }
-
-    .search-preview .query-text {
-      color: var(--success);
-    }
-
-    /* SEARCH BAR */
-    .search-bar-card {
-      background: linear-gradient(135deg, var(--surface), #1e1a36);
-      border: 1px solid var(--accent);
-      border-radius: 16px;
-      padding: 28px;
-    }
-
-    .search-engines {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
-    .engine-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-      border: 1px solid transparent;
-      font-family: var(--font);
-    }
-
-    .engine-google {
-      background: #4285f4;
-      color: #fff;
-    }
-
-    .engine-google:hover { background: #5a96f5; }
-
-    .engine-bing {
-      background: #00809d;
-      color: #fff;
-    }
-
-    .engine-bing:hover { background: #009ab8; }
-
-    .engine-duckduckgo {
-      background: #de5833;
-      color: #fff;
-    }
-
-    .engine-duckduckgo:hover { background: #e86d4a; }
-
-    /* KEYWORD INPUT */
-    .keyword-area {
+    /* ── RESULTS PANEL ── */
+    .results-panel {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 20px;
     }
 
-    .keyword-tags {
+    /* ── EMPTY / STATUS STATES ── */
+    .state-screen {
+      flex: 1;
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    /* SECTION LABEL */
-    .section-label {
-      font-size: 0.75rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      padding: 40px;
     }
 
-    /* DIVIDER */
+    .state-icon { font-size: 3rem; opacity: 0.4; }
+
+    .state-screen h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      opacity: 0.6;
+    }
+
+    .state-screen p { font-size: 0.85rem; max-width: 360px; }
+
+    /* ── RESULTS HEADER ── */
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .results-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .results-meta strong { color: var(--text); }
+
+    .view-toggle {
+      display: flex;
+      gap: 4px;
+    }
+
+    .view-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-family: var(--font);
+      transition: all 0.12s;
+    }
+
+    .view-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent-hover); }
+
+    /* ── IMAGE GRID ── */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .image-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.15s, transform 0.15s;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .image-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .image-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: var(--surface2);
+    }
+
+    .image-card-body {
+      padding: 10px 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .image-card-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .image-card-source {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* ── LIST VIEW ── */
+    .result-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .result-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+
+    .result-item:hover { border-color: var(--accent); }
+
+    .result-thumb {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: var(--surface2);
+      flex-shrink: 0;
+    }
+
+    .result-thumb-placeholder {
+      width: 80px;
+      height: 60px;
+      background: var(--surface2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .result-body { flex: 1; min-width: 0; }
+
+    .result-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .result-url {
+      font-size: 0.72rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .result-snippet {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .result-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.65rem;
+      color: var(--accent-hover);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 6px;
+    }
+
+    /* ── SPINNER ── */
+    .spinner-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── DIVIDER ── */
     .divider {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 20px 0;
     }
 
-    /* STATUS */
-    .status-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 12px;
-    }
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--text-muted);
-    }
-
-    .status-dot.ready { background: var(--success); }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 32px 24px;
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      border-top: 1px solid var(--border);
-      margin-top: 24px;
-    }
-
-    /* TOOLTIP */
-    .tooltip-wrap { position: relative; display: inline-block; }
-    .tooltip {
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: #eee;
-      font-size: 0.72rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-    }
-    .tooltip-wrap:hover .tooltip { opacity: 1; }
-
-    /* EMPTY STATE */
-    .empty-notice {
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      font-style: italic;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .sidebar {
+        position: fixed;
+        top: 57px;
+        left: 0;
+        height: calc(100vh - 57px);
+        z-index: 150;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+      }
+      .toggle-sidebar-btn { display: block; }
+      .results-panel { padding: 16px; }
+      .image-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
   </style>
 </head>
@@ -440,195 +525,154 @@
     <div class="logo-icon">◈</div>
     Design<span>Spy</span>
   </div>
-  <div class="header-sub">Real-world design inspiration finder</div>
+  <div class="header-right">
+    <button class="toggle-sidebar-btn" onclick="toggleSidebar()" id="toggleBtn">☰ Filters</button>
+  </div>
 </header>
 
-<div class="container">
+<div class="app">
 
-  <div class="hero">
-    <h1>Find Real Design Inspiration</h1>
-    <p>Search for actual marketing materials from real companies — not stock mockups. Filter by industry, format, and file type.</p>
-  </div>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
 
-  <!-- QUICK PRESETS -->
-  <div class="card">
-    <div class="card-title">Quick Presets</div>
-    <div class="presets-row" id="presetsRow"></div>
-  </div>
+      <!-- Presets -->
+      <div class="sidebar-section">
+        <div class="section-title">Quick Presets</div>
+        <div class="preset-list" id="presetList"></div>
+      </div>
 
-  <!-- FILTERS -->
-  <div class="filters-grid">
+      <hr class="divider" />
 
-    <!-- Industry -->
-    <div class="card">
-      <div class="card-title">Industry</div>
-      <div class="tag-group" id="industryTags"></div>
-    </div>
+      <!-- Industry -->
+      <div class="sidebar-section">
+        <div class="section-title">Industry</div>
+        <div class="tag-group" id="industryTags"></div>
+      </div>
 
-    <!-- Creative Type -->
-    <div class="card">
-      <div class="card-title">Creative Piece Type</div>
-      <div class="tag-group" id="typeTags"></div>
-    </div>
+      <!-- Creative Type -->
+      <div class="sidebar-section">
+        <div class="section-title">Creative Piece Type</div>
+        <div class="tag-group" id="typeTags"></div>
+      </div>
 
-    <!-- File Type -->
-    <div class="card">
-      <div class="card-title">File Type</div>
-      <div class="tag-group" id="fileTags"></div>
-    </div>
+      <!-- File Type -->
+      <div class="sidebar-section">
+        <div class="section-title">File Type</div>
+        <div class="tag-group" id="fileTags"></div>
+      </div>
 
-    <!-- Keywords -->
-    <div class="card">
-      <div class="card-title">Additional Keywords</div>
-      <div class="keyword-area">
-        <div class="input-row">
-          <input type="text" id="keywordInput" placeholder="e.g. sustainability, bold typography..." />
-          <button class="btn" onclick="addKeyword()">Add</button>
+      <hr class="divider" />
+
+      <!-- Companies -->
+      <div class="sidebar-section">
+        <div class="section-title">Target Companies</div>
+        <div class="input-row" style="margin-bottom:8px">
+          <input type="text" id="companyInput" placeholder="Add company…" />
+          <button class="btn" onclick="addCompany()">+</button>
         </div>
-        <div class="keyword-tags" id="keywordTags">
-          <span class="empty-notice">No extra keywords yet</span>
+        <div class="section-title" style="margin-bottom:6px">Quick-add AEC firms</div>
+        <div class="tag-group" id="companyPresets"></div>
+        <div class="chip-list" id="companyChips"></div>
+      </div>
+
+      <!-- Keywords -->
+      <div class="sidebar-section">
+        <div class="section-title">Extra Keywords</div>
+        <div class="input-row" style="margin-bottom:6px">
+          <input type="text" id="keywordInput" placeholder="e.g. sustainability…" />
+          <button class="btn" onclick="addKeyword()">+</button>
         </div>
+        <div class="chip-list" id="keywordChips"></div>
       </div>
-    </div>
 
-  </div>
+      <hr class="divider" />
 
-  <!-- COMPANIES -->
-  <div class="card">
-    <div class="card-title">Target Companies</div>
-    <div class="company-input-area">
-      <div class="input-row">
-        <input type="text" id="companyInput" placeholder="Type a company name and press Add or Enter..." />
-        <button class="btn" onclick="addCompany()">Add</button>
-      </div>
-      <div class="section-label">Quick-add well-known firms:</div>
-      <div class="tag-group" id="companyPresets"></div>
-      <div class="company-chips" id="companyChips">
-        <span class="empty-notice" id="companyEmpty">No companies added — results will search all companies</span>
-      </div>
-    </div>
-  </div>
+      <button class="search-btn" id="searchBtn" onclick="runSearch()">Search</button>
 
-  <!-- SEARCH -->
-  <div class="search-bar-card">
-    <div class="card-title">Search Query Preview</div>
-    <div class="search-preview" id="queryPreview">
-      <span class="query-text">Select filters above to build your search query…</span>
     </div>
-    <div class="search-engines" id="searchEngines">
-      <button class="engine-btn engine-google" onclick="openSearch('google')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Search Google
-      </button>
-      <button class="engine-btn engine-bing" onclick="openSearch('bing')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M5 3l4 1.5v13l6-3.5-2.5-1.5L11 8l6 2v6l-8 4.5L5 18V3z"/></svg>
-        Search Bing
-      </button>
-      <button class="engine-btn engine-duckduckgo" onclick="openSearch('duckduckgo')">
-        🦆 DuckDuckGo
-      </button>
+  </aside>
+
+  <!-- ── RESULTS ── -->
+  <main class="results-panel" id="resultsPanel">
+    <div class="state-screen" id="emptyState">
+      <div class="state-icon">◈</div>
+      <h2>Set your filters and search</h2>
+      <p>Choose an industry, creative type, file format, and companies on the left — then hit Search to find real design examples.</p>
     </div>
-    <div class="status-bar">
-      <div class="status-dot" id="statusDot"></div>
-      <span id="statusText">Add at least one filter or company to search</span>
-    </div>
-  </div>
+  </main>
 
 </div>
 
-<footer>
-  DesignSpy · Finds publicly available design materials from the web · Results open directly in your search engine
-</footer>
-
 <script>
+  const API_KEY = '045975c86155595809ac5b971a5a8d5541d4e81e5cc9fe864462bf57aece3b99';
+
   // ── DATA ──────────────────────────────────────────────────────────────────
 
   const INDUSTRIES = [
-    "Architecture & Engineering",
-    "Construction",
-    "Technology",
-    "Healthcare",
-    "Finance & Banking",
-    "Real Estate",
-    "Energy & Utilities",
-    "Government & Public Sector",
-    "Education",
-    "Nonprofit",
-    "Retail & Consumer",
-    "Transportation & Logistics",
-    "Environmental & Sustainability",
-    "Legal & Professional Services",
+    "Architecture & Engineering", "Construction", "Technology", "Healthcare",
+    "Finance & Banking", "Real Estate", "Energy & Utilities",
+    "Government & Public Sector", "Education", "Nonprofit",
+    "Retail & Consumer", "Transportation & Logistics",
+    "Environmental & Sustainability", "Legal & Professional Services",
     "Hospitality & Travel",
   ];
 
   const CREATIVE_TYPES = [
-    { label: "Fact Sheet", keywords: ["fact sheet", "factsheet"] },
-    { label: "Brochure", keywords: ["brochure", "capabilities brochure"] },
-    { label: "Case Study", keywords: ["case study"] },
-    { label: "Annual Report", keywords: ["annual report"] },
-    { label: "White Paper", keywords: ["white paper", "whitepaper"] },
-    { label: "Proposal", keywords: ["proposal", "RFP response"] },
-    { label: "Social Media Post", keywords: ["social media", "linkedin post", "instagram post"] },
-    { label: "Newsletter", keywords: ["newsletter", "e-newsletter"] },
-    { label: "Ad / Banner", keywords: ["advertisement", "banner ad", "display ad"] },
-    { label: "Infographic", keywords: ["infographic"] },
-    { label: "Presentation", keywords: ["presentation deck", "slide deck"] },
-    { label: "One-Pager", keywords: ["one pager", "one-pager", "overview sheet"] },
-    { label: "Capabilities Statement", keywords: ["capabilities statement", "capability statement"] },
-    { label: "Data Sheet", keywords: ["data sheet", "datasheet", "spec sheet"] },
-    { label: "Event Flyer", keywords: ["event flyer", "conference flyer"] },
+    { label: "Fact Sheet",            keywords: ["fact sheet", "factsheet"] },
+    { label: "Brochure",              keywords: ["brochure", "capabilities brochure"] },
+    { label: "Case Study",            keywords: ["case study"] },
+    { label: "Annual Report",         keywords: ["annual report"] },
+    { label: "White Paper",           keywords: ["white paper"] },
+    { label: "Proposal",              keywords: ["proposal"] },
+    { label: "Social Media Post",     keywords: ["social media post"] },
+    { label: "Newsletter",            keywords: ["newsletter"] },
+    { label: "Ad / Banner",           keywords: ["advertisement", "banner ad"] },
+    { label: "Infographic",           keywords: ["infographic"] },
+    { label: "Presentation",          keywords: ["presentation deck"] },
+    { label: "One-Pager",             keywords: ["one pager", "one-pager"] },
+    { label: "Capabilities Statement",keywords: ["capabilities statement"] },
+    { label: "Data Sheet",            keywords: ["data sheet", "datasheet"] },
+    { label: "Event Flyer",           keywords: ["event flyer"] },
   ];
 
   const FILE_TYPES = [
-    { label: "PDF", value: "pdf" },
-    { label: "JPG / Image", value: "jpg" },
-    { label: "PNG", value: "png" },
-    { label: "Any (no filter)", value: null },
+    { label: "PDF",       value: "pdf" },
+    { label: "JPG",       value: "jpg" },
+    { label: "PNG",       value: "png" },
+    { label: "Any",       value: null },
   ];
 
-  const COMPANY_PRESETS_AEC = [
-    "AECOM", "WSP", "Jacobs", "Kimley-Horn", "GHD",
-    "Stantec", "Tetra Tech", "Burns & McDonnell", "HDR", "HNTB",
-    "Parsons", "Arcadis", "Gensler", "HOK", "Perkins&Will",
+  const COMPANY_PRESETS = [
+    "AECOM","WSP","Jacobs","Kimley-Horn","GHD","Stantec","Tetra Tech",
+    "Burns & McDonnell","HDR","HNTB","Parsons","Arcadis","Gensler","HOK","Perkins&Will",
   ];
 
   const PRESETS = [
-    {
-      label: "AEC Fact Sheets (PDF)",
-      industry: "Architecture & Engineering",
-      type: "Fact Sheet",
-      file: "pdf",
-      companies: ["AECOM", "WSP", "Jacobs", "Kimley-Horn", "GHD"],
-    },
-    {
-      label: "AEC Case Studies",
-      industry: "Architecture & Engineering",
-      type: "Case Study",
-      file: "pdf",
-      companies: ["AECOM", "Stantec", "Jacobs"],
-    },
-    {
-      label: "Tech Company Brochures",
-      industry: "Technology",
-      type: "Brochure",
-      file: "pdf",
-      companies: [],
-    },
-    {
-      label: "Healthcare Infographics",
-      industry: "Healthcare",
-      type: "Infographic",
-      file: null,
-      companies: [],
-    },
-    {
-      label: "AEC Annual Reports",
-      industry: "Architecture & Engineering",
-      type: "Annual Report",
-      file: "pdf",
-      companies: ["AECOM", "WSP", "Arcadis"],
-    },
+    { label: "⚡ AEC Fact Sheets (PDF)",    industry: "Architecture & Engineering", type: "Fact Sheet",            file: "pdf",  companies: ["AECOM","WSP","Jacobs","Kimley-Horn","GHD"] },
+    { label: "⚡ AEC Case Studies",         industry: "Architecture & Engineering", type: "Case Study",            file: "pdf",  companies: ["AECOM","Stantec","Jacobs"] },
+    { label: "⚡ AEC Annual Reports",       industry: "Architecture & Engineering", type: "Annual Report",         file: "pdf",  companies: ["AECOM","WSP","Arcadis"] },
+    { label: "⚡ Tech Brochures",           industry: "Technology",                 type: "Brochure",              file: "pdf",  companies: [] },
+    { label: "⚡ Healthcare Infographics",  industry: "Healthcare",                 type: "Infographic",           file: null,   companies: [] },
   ];
+
+  const INDUSTRY_KEYWORDS = {
+    "Architecture & Engineering": '"architecture" OR "engineering" OR "AEC"',
+    "Construction":               '"construction"',
+    "Technology":                 '"technology" OR "software"',
+    "Healthcare":                 '"healthcare" OR "health"',
+    "Finance & Banking":          '"finance" OR "banking"',
+    "Real Estate":                '"real estate"',
+    "Energy & Utilities":         '"energy" OR "utilities"',
+    "Government & Public Sector": '"government" OR "public sector"',
+    "Education":                  '"education"',
+    "Nonprofit":                  '"nonprofit" OR "non-profit"',
+    "Retail & Consumer":          '"retail" OR "consumer"',
+    "Transportation & Logistics": '"transportation" OR "logistics"',
+    "Environmental & Sustainability": '"environmental" OR "sustainability"',
+    "Legal & Professional Services":  '"legal" OR "professional services"',
+    "Hospitality & Travel":       '"hospitality" OR "travel"',
+  };
 
   // ── STATE ─────────────────────────────────────────────────────────────────
 
@@ -638,270 +682,330 @@
     file: null,
     companies: [],
     keywords: [],
+    viewMode: 'grid',   // 'grid' | 'list'
+    loading: false,
   };
-
-  // ── RENDER ────────────────────────────────────────────────────────────────
-
-  function renderAll() {
-    renderTags('industryTags', INDUSTRIES, 'industry', i => i, i => i);
-    renderTags('typeTags', CREATIVE_TYPES, 'type', t => t.label, t => t.label);
-    renderTags('fileTags', FILE_TYPES, 'file', f => f.label, f => f.value);
-    renderCompanyPresets();
-    renderPresets();
-    updateQuery();
-  }
-
-  function renderTags(containerId, items, stateKey, labelFn, valueFn) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = '';
-    items.forEach(item => {
-      const val = valueFn(item);
-      const label = labelFn(item);
-      const tag = document.createElement('div');
-      tag.className = 'tag' + (state[stateKey] === val ? ' active' : '');
-      tag.textContent = label;
-      tag.onclick = () => {
-        state[stateKey] = state[stateKey] === val ? null : val;
-        renderAll();
-      };
-      container.appendChild(tag);
-    });
-  }
-
-  function renderCompanyPresets() {
-    const container = document.getElementById('companyPresets');
-    container.innerHTML = '';
-    COMPANY_PRESETS_AEC.forEach(name => {
-      const tag = document.createElement('div');
-      tag.className = 'tag' + (state.companies.includes(name) ? ' active' : '');
-      tag.textContent = name;
-      tag.onclick = () => {
-        if (state.companies.includes(name)) {
-          state.companies = state.companies.filter(c => c !== name);
-        } else {
-          state.companies.push(name);
-        }
-        renderAll();
-      };
-      container.appendChild(tag);
-    });
-    renderCompanyChips();
-  }
-
-  function renderCompanyChips() {
-    const container = document.getElementById('companyChips');
-    const empty = document.getElementById('companyEmpty');
-    // Remove existing chips (not the empty notice)
-    Array.from(container.children).forEach(c => {
-      if (c !== empty) c.remove();
-    });
-
-    if (state.companies.length === 0) {
-      empty.style.display = '';
-      return;
-    }
-    empty.style.display = 'none';
-
-    state.companies.forEach(name => {
-      const chip = document.createElement('div');
-      chip.className = 'company-chip';
-      chip.innerHTML = `${name} <span class="remove-chip" onclick="removeCompany('${name.replace(/'/g, "\\'")}')">×</span>`;
-      container.appendChild(chip);
-    });
-  }
-
-  function renderPresets() {
-    const container = document.getElementById('presetsRow');
-    container.innerHTML = '';
-    PRESETS.forEach(preset => {
-      const btn = document.createElement('button');
-      btn.className = 'preset-btn';
-      btn.textContent = '⚡ ' + preset.label;
-      btn.onclick = () => applyPreset(preset);
-      container.appendChild(btn);
-    });
-  }
-
-  function applyPreset(preset) {
-    state.industry = preset.industry;
-    state.type = preset.type;
-    state.file = preset.file;
-    state.companies = [...preset.companies];
-    renderAll();
-  }
-
-  // ── COMPANY MANAGEMENT ────────────────────────────────────────────────────
-
-  function addCompany() {
-    const input = document.getElementById('companyInput');
-    const val = input.value.trim();
-    if (val && !state.companies.includes(val)) {
-      state.companies.push(val);
-      renderAll();
-    }
-    input.value = '';
-    input.focus();
-  }
-
-  function removeCompany(name) {
-    state.companies = state.companies.filter(c => c !== name);
-    renderAll();
-  }
-
-  document.getElementById('companyInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addCompany();
-  });
-
-  // ── KEYWORD MANAGEMENT ────────────────────────────────────────────────────
-
-  function addKeyword() {
-    const input = document.getElementById('keywordInput');
-    const val = input.value.trim();
-    if (val && !state.keywords.includes(val)) {
-      state.keywords.push(val);
-      renderKeywords();
-      updateQuery();
-    }
-    input.value = '';
-    input.focus();
-  }
-
-  function removeKeyword(kw) {
-    state.keywords = state.keywords.filter(k => k !== kw);
-    renderKeywords();
-    updateQuery();
-  }
-
-  document.getElementById('keywordInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addKeyword();
-  });
-
-  function renderKeywords() {
-    const container = document.getElementById('keywordTags');
-    container.innerHTML = '';
-    if (state.keywords.length === 0) {
-      container.innerHTML = '<span class="empty-notice">No extra keywords yet</span>';
-      return;
-    }
-    state.keywords.forEach(kw => {
-      const chip = document.createElement('div');
-      chip.className = 'company-chip';
-      chip.innerHTML = `${kw} <span class="remove-chip" onclick="removeKeyword('${kw.replace(/'/g, "\\'")}')">×</span>`;
-      container.appendChild(chip);
-    });
-  }
 
   // ── QUERY BUILDER ─────────────────────────────────────────────────────────
 
   function buildQuery() {
     const parts = [];
 
-    // Creative type keywords
     if (state.type) {
-      const typeObj = CREATIVE_TYPES.find(t => t.label === state.type);
-      if (typeObj) {
-        const kws = typeObj.keywords;
-        const typeStr = kws.length === 1
-          ? `"${kws[0]}"`
-          : `(${kws.map(k => `"${k}"`).join(' OR ')})`;
-        parts.push(typeStr);
+      const t = CREATIVE_TYPES.find(x => x.label === state.type);
+      if (t) {
+        parts.push(t.keywords.length === 1
+          ? `"${t.keywords[0]}"`
+          : `(${t.keywords.map(k => `"${k}"`).join(' OR ')})`);
       }
     }
 
-    // Industry
-    if (state.industry) {
-      // Use shorter form for cleaner searches
-      const industryMap = {
-        "Architecture & Engineering": '"architecture" OR "engineering" OR "AEC"',
-        "Construction": '"construction"',
-        "Technology": '"technology" OR "software" OR "tech"',
-        "Healthcare": '"healthcare" OR "health"',
-        "Finance & Banking": '"finance" OR "financial services" OR "banking"',
-        "Real Estate": '"real estate"',
-        "Energy & Utilities": '"energy" OR "utilities"',
-        "Government & Public Sector": '"government" OR "public sector"',
-        "Education": '"education" OR "higher education"',
-        "Nonprofit": '"nonprofit" OR "non-profit"',
-        "Retail & Consumer": '"retail" OR "consumer goods"',
-        "Transportation & Logistics": '"transportation" OR "logistics"',
-        "Environmental & Sustainability": '"environmental" OR "sustainability"',
-        "Legal & Professional Services": '"legal" OR "professional services"',
-        "Hospitality & Travel": '"hospitality" OR "travel"',
-      };
-      if (industryMap[state.industry]) {
-        parts.push(industryMap[state.industry]);
-      }
+    if (state.industry && INDUSTRY_KEYWORDS[state.industry]) {
+      parts.push(INDUSTRY_KEYWORDS[state.industry]);
     }
 
-    // Companies — if multiple, use OR grouping
     if (state.companies.length > 0) {
-      if (state.companies.length === 1) {
-        parts.push(`"${state.companies[0]}"`);
-      } else {
-        parts.push(`(${state.companies.map(c => `"${c}"`).join(' OR ')})`);
-      }
+      parts.push(state.companies.length === 1
+        ? `"${state.companies[0]}"`
+        : `(${state.companies.map(c => `"${c}"`).join(' OR ')})`);
     }
 
-    // Extra keywords
-    state.keywords.forEach(kw => {
-      parts.push(`"${kw}"`);
-    });
+    state.keywords.forEach(k => parts.push(`"${k}"`));
 
-    // File type
-    if (state.file) {
-      parts.push(`filetype:${state.file}`);
-    }
+    if (state.file) parts.push(`filetype:${state.file}`);
 
     return parts.join(' ');
   }
 
-  function updateQuery() {
-    const q = buildQuery();
-    const preview = document.getElementById('queryPreview');
-    const dot = document.getElementById('statusDot');
-    const statusText = document.getElementById('statusText');
-
-    if (!q) {
-      preview.innerHTML = '<span class="query-text">Select filters above to build your search query…</span>';
-      dot.className = 'status-dot';
-      statusText.textContent = 'Add at least one filter or company to search';
-    } else {
-      preview.innerHTML = `<span class="query-text">${escapeHtml(q)}</span>`;
-      dot.className = 'status-dot ready';
-      statusText.textContent = 'Query ready — click a search button below';
-    }
-  }
-
-  function escapeHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
   // ── SEARCH ────────────────────────────────────────────────────────────────
 
-  function openSearch(engine) {
+  async function runSearch() {
     const q = buildQuery();
     if (!q) {
-      alert('Please select at least one filter or add a company before searching.');
+      alert('Select at least one filter or company first.');
       return;
     }
 
-    const urls = {
-      google: `https://www.google.com/search?q=${encodeURIComponent(q)}&tbm=isch`,
-      bing: `https://www.bing.com/search?q=${encodeURIComponent(q)}`,
-      duckduckgo: `https://duckduckgo.com/?q=${encodeURIComponent(q)}`,
-    };
+    state.loading = true;
+    renderResults(null, q);
 
-    // For PDFs, switch Google to regular search (not image search)
-    let url = urls[engine];
-    if (engine === 'google' && state.file === 'pdf') {
-      url = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+    // For image file types (jpg/png) or no filetype — use image search
+    // For pdf — use web search
+    const isImageSearch = state.file !== 'pdf';
+    const endpoint = 'https://serpapi.com/search.json';
+
+    const params = new URLSearchParams({
+      api_key: API_KEY,
+      q,
+      engine: 'google',
+      num: '20',
+    });
+
+    if (isImageSearch && state.file !== null) {
+      params.set('tbm', 'isch');
+    } else if (state.file === 'pdf') {
+      // web search, no tbm
+    } else {
+      // no filetype set — use image search for visual inspiration
+      params.set('tbm', 'isch');
     }
 
-    window.open(url, '_blank', 'noopener,noreferrer');
+    try {
+      const res = await fetch(`${endpoint}?${params}`);
+      if (!res.ok) throw new Error(`API error ${res.status}`);
+      const data = await res.json();
+      state.loading = false;
+      renderResults(data, q);
+    } catch (err) {
+      state.loading = false;
+      renderError(err.message);
+    }
+  }
+
+  // ── RENDER RESULTS ────────────────────────────────────────────────────────
+
+  function renderResults(data, query) {
+    const panel = document.getElementById('resultsPanel');
+
+    if (state.loading) {
+      panel.innerHTML = `<div class="spinner-wrap"><div class="spinner"></div></div>`;
+      return;
+    }
+
+    if (!data) return;
+
+    // Gather results from either image or organic
+    const imageResults = data.images_results || [];
+    const organicResults = data.organic_results || [];
+    const total = imageResults.length + organicResults.length;
+
+    if (total === 0) {
+      panel.innerHTML = `
+        <div class="state-screen">
+          <div class="state-icon">🔍</div>
+          <h2>No results found</h2>
+          <p>Try broadening your filters — fewer companies, a different file type, or fewer keywords.</p>
+        </div>`;
+      return;
+    }
+
+    const isImages = imageResults.length > 0;
+    const count = isImages ? imageResults.length : organicResults.length;
+
+    panel.innerHTML = `
+      <div class="results-header">
+        <div class="results-meta">
+          <strong>${count}</strong> results for <strong>${escHtml(query)}</strong>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn ${state.viewMode === 'grid' ? 'active' : ''}" onclick="setView('grid')">▦ Grid</button>
+          <button class="view-btn ${state.viewMode === 'list' ? 'active' : ''}" onclick="setView('list')">☰ List</button>
+        </div>
+      </div>
+      <div id="resultsBody"></div>`;
+
+    renderResultsBody(isImages ? imageResults : organicResults, isImages);
+  }
+
+  function renderResultsBody(items, isImages) {
+    const body = document.getElementById('resultsBody');
+    if (!body) return;
+
+    if (state.viewMode === 'grid' && isImages) {
+      body.innerHTML = `<div class="image-grid">${items.map(img => `
+        <a class="image-card" href="${escHtml(img.original || img.link || '#')}" target="_blank" rel="noopener noreferrer">
+          <img src="${escHtml(img.thumbnail)}" alt="${escHtml(img.title || '')}" loading="lazy"
+               onerror="this.style.display='none'" />
+          <div class="image-card-body">
+            <div class="image-card-title">${escHtml(img.title || 'Untitled')}</div>
+            <div class="image-card-source">${escHtml(hostOf(img.link || img.source || ''))}</div>
+          </div>
+        </a>`).join('')}</div>`;
+    } else {
+      // List view — works for both image results and organic results
+      body.innerHTML = `<div class="result-list">${items.map(item => {
+        const thumb = item.thumbnail || item.image;
+        const url = item.original || item.link || '#';
+        const title = item.title || 'Untitled';
+        const snippet = item.snippet || item.source || '';
+        const displayUrl = item.displayed_link || item.link || item.source || '';
+        const ext = state.file ? state.file.toUpperCase() : '';
+
+        return `<a class="result-item" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer">
+          ${thumb
+            ? `<img class="result-thumb" src="${escHtml(thumb)}" alt="" loading="lazy" onerror="this.parentNode.replaceChild(makePlaceholder('${ext || '🔗'}'), this)" />`
+            : `<div class="result-thumb-placeholder">${ext || '🔗'}</div>`}
+          <div class="result-body">
+            <div class="result-title">${escHtml(title)}</div>
+            <div class="result-url">${escHtml(displayUrl)}</div>
+            ${snippet ? `<div class="result-snippet">${escHtml(snippet)}</div>` : ''}
+            ${ext ? `<span class="result-badge">${ext}</span>` : ''}
+          </div>
+        </a>`;
+      }).join('')}</div>`;
+    }
+  }
+
+  function makePlaceholder(label) {
+    const d = document.createElement('div');
+    d.className = 'result-thumb-placeholder';
+    d.textContent = label;
+    return d;
+  }
+
+  function renderError(msg) {
+    document.getElementById('resultsPanel').innerHTML = `
+      <div class="state-screen">
+        <div class="state-icon">⚠️</div>
+        <h2>Search failed</h2>
+        <p>${escHtml(msg)}</p>
+      </div>`;
+  }
+
+  function setView(mode) {
+    state.viewMode = mode;
+    // Re-render body without re-fetching
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view-btn').forEach(b => {
+      if (b.textContent.toLowerCase().includes(mode)) b.classList.add('active');
+    });
+    // Grab last results from DOM items and rerender
+    const items = [];
+    document.querySelectorAll('.image-card, .result-item').forEach(el => {
+      const thumb = el.querySelector('img');
+      const title = el.querySelector('.image-card-title, .result-title');
+      const url = el.querySelector('.result-url');
+      const snippet = el.querySelector('.result-snippet');
+      items.push({
+        original: el.href,
+        link: el.href,
+        thumbnail: thumb ? thumb.src : null,
+        title: title ? title.textContent : '',
+        displayed_link: url ? url.textContent : '',
+        snippet: snippet ? snippet.textContent : '',
+      });
+    });
+    renderResultsBody(items, state.file !== 'pdf');
+  }
+
+  // ── SIDEBAR TOGGLE ────────────────────────────────────────────────────────
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('hidden');
+  }
+
+  // ── TAG RENDERING ─────────────────────────────────────────────────────────
+
+  function renderTags(id, items, stateKey, labelFn, valueFn) {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    items.forEach(item => {
+      const val = valueFn(item);
+      const tag = document.createElement('div');
+      tag.className = 'tag' + (state[stateKey] === val ? ' active' : '');
+      tag.textContent = labelFn(item);
+      tag.onclick = () => { state[stateKey] = state[stateKey] === val ? null : val; renderSidebar(); };
+      el.appendChild(tag);
+    });
+  }
+
+  function renderCompanyPresets() {
+    const el = document.getElementById('companyPresets');
+    el.innerHTML = '';
+    COMPANY_PRESETS.forEach(name => {
+      const tag = document.createElement('div');
+      tag.className = 'tag' + (state.companies.includes(name) ? ' active' : '');
+      tag.textContent = name;
+      tag.onclick = () => {
+        state.companies = state.companies.includes(name)
+          ? state.companies.filter(c => c !== name)
+          : [...state.companies, name];
+        renderSidebar();
+      };
+      el.appendChild(tag);
+    });
+  }
+
+  function renderChips(id, arr, removeFn) {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    arr.forEach(val => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.innerHTML = `${escHtml(val)} <span class="chip-x" onclick="${removeFn}('${val.replace(/'/g,"\\'") }')">×</span>`;
+      el.appendChild(chip);
+    });
+  }
+
+  function renderPresets() {
+    const el = document.getElementById('presetList');
+    el.innerHTML = '';
+    PRESETS.forEach(p => {
+      const btn = document.createElement('button');
+      btn.className = 'preset-item';
+      btn.textContent = p.label;
+      btn.onclick = () => {
+        state.industry = p.industry;
+        state.type = p.type;
+        state.file = p.file;
+        state.companies = [...p.companies];
+        renderSidebar();
+      };
+      el.appendChild(btn);
+    });
+  }
+
+  function renderSidebar() {
+    renderTags('industryTags', INDUSTRIES,    'industry', i => i,       i => i);
+    renderTags('typeTags',     CREATIVE_TYPES,'type',     t => t.label, t => t.label);
+    renderTags('fileTags',     FILE_TYPES,    'file',     f => f.label, f => f.value);
+    renderCompanyPresets();
+    renderChips('companyChips', state.companies, 'removeCompany');
+    renderChips('keywordChips', state.keywords,  'removeKeyword');
+    renderPresets();
+  }
+
+  // ── COMPANY / KEYWORD MANAGEMENT ──────────────────────────────────────────
+
+  function addCompany() {
+    const inp = document.getElementById('companyInput');
+    const val = inp.value.trim();
+    if (val && !state.companies.includes(val)) { state.companies.push(val); renderSidebar(); }
+    inp.value = ''; inp.focus();
+  }
+
+  function removeCompany(name) {
+    state.companies = state.companies.filter(c => c !== name);
+    renderSidebar();
+  }
+
+  function addKeyword() {
+    const inp = document.getElementById('keywordInput');
+    const val = inp.value.trim();
+    if (val && !state.keywords.includes(val)) { state.keywords.push(val); renderSidebar(); }
+    inp.value = ''; inp.focus();
+  }
+
+  function removeKeyword(kw) {
+    state.keywords = state.keywords.filter(k => k !== kw);
+    renderSidebar();
+  }
+
+  document.getElementById('companyInput').addEventListener('keydown', e => { if (e.key === 'Enter') addCompany(); });
+  document.getElementById('keywordInput').addEventListener('keydown', e => { if (e.key === 'Enter') addKeyword(); });
+
+  // ── UTILS ─────────────────────────────────────────────────────────────────
+
+  function escHtml(str) {
+    return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function hostOf(url) {
+    try { return new URL(url).hostname.replace('www.',''); } catch { return url; }
   }
 
   // ── INIT ──────────────────────────────────────────────────────────────────
-  renderAll();
+  renderSidebar();
 </script>
 </body>
 </html>
