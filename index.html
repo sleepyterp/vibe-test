@@ -752,13 +752,23 @@
 
     try {
       const res = await fetch(`${endpoint}?${params}`);
-      if (!res.ok) throw new Error(`API error ${res.status}`);
-      const data = await res.json();
+      let data;
+      try { data = await res.json(); } catch { data = {}; }
+      if (!res.ok) {
+        const msg = data.error || `HTTP ${res.status}`;
+        throw new Error(msg);
+      }
       state.loading = false;
       renderResults(data, q);
     } catch (err) {
       state.loading = false;
-      renderError(err.message);
+      const isCors = err.message === 'Failed to fetch';
+      renderError(
+        isCors
+          ? 'CORS error: SerpAPI blocked the browser request. See instructions below to fix.'
+          : err.message,
+        isCors
+      );
     }
   }
 
@@ -853,12 +863,18 @@
     return d;
   }
 
-  function renderError(msg) {
+  function renderError(msg, isCors = false) {
     document.getElementById('resultsPanel').innerHTML = `
       <div class="state-screen">
         <div class="state-icon">⚠️</div>
         <h2>Search failed</h2>
-        <p>${escHtml(msg)}</p>
+        <p style="color:#f76a6a;font-family:monospace;font-size:0.8rem;margin-bottom:8px">${escHtml(msg)}</p>
+        ${isCors ? `<p style="max-width:480px;text-align:left;line-height:1.7">
+          SerpAPI doesn't allow direct browser requests (CORS policy).<br>
+          <strong>Fix:</strong> Go to <a href="https://serpapi.com/dashboard" target="_blank" style="color:var(--accent)">serpapi.com/dashboard</a>
+          → <em>API Settings</em> → add <code style="background:var(--surface2);padding:2px 6px;border-radius:4px">sleepyterp.github.io</code>
+          to your <strong>Allowed Domains</strong> list, then try again.
+        </p>` : ''}
       </div>`;
   }
 
