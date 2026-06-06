@@ -605,7 +605,7 @@
 </div>
 
 <script>
-  const API_KEY = '045975c86155595809ac5b971a5a8d5541d4e81e5cc9fe864462bf57aece3b99';
+  const SEARCH_ENDPOINT = '/.netlify/functions/search';
 
   // ── DATA ──────────────────────────────────────────────────────────────────
 
@@ -732,10 +732,8 @@
     // For image file types (jpg/png) or no filetype — use image search
     // For pdf — use web search
     const isImageSearch = state.file !== 'pdf';
-    const endpoint = 'https://serpapi.com/search.json';
 
     const params = new URLSearchParams({
-      api_key: API_KEY,
       q,
       engine: 'google',
       num: '20',
@@ -751,7 +749,7 @@
     }
 
     try {
-      const res = await fetch(`${endpoint}?${params}`);
+      const res = await fetch(`${SEARCH_ENDPOINT}?${params}`);
       let data;
       try { data = await res.json(); } catch { data = {}; }
       if (!res.ok) {
